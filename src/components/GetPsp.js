@@ -1,23 +1,73 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { ClipLoader } from 'react-spinners'
+import { donateFetch } from '../axios/custom'
+import { setErrorMessage } from '../features/alert/alertSlice'
+import { nextColorStep, nextPageStep } from '../features/donateSteps/donateStepSlice'
 import Alert from './Alert'
 
-function GetPsp() {
+function GetPsp({handleChange,gateWay}) {
+    const {display} = useSelector((store) => store.alert)
+    const [psps,setPsps] = useState([])
+    const [isLoading,setIsLoading] = useState(false)
+    const dispatch =  useDispatch()
+
+  
+    useEffect(() => {
+     const transaction_id = localStorage.getItem('transaction_id') 
+        setIsLoading(true)
+        const fetchPsps = async () => {
+            try {
+                const {data} = await donateFetch(`/transaction/getpsp/${transaction_id}`)
+                setIsLoading(false)
+                setPsps(data.data)
+            } catch (error) {
+                console.log(error);
+                setIsLoading(false)
+                dispatch(setErrorMessage('something went wrong try later'))
+            }
+        }
+
+       setTimeout(() => {
+        fetchPsps()
+       }, 2000);
+    },[dispatch])
+
+    const handleClick = () => {
+        if (gateWay === '') {
+            dispatch(setErrorMessage('please choose a payment method'))
+            return
+        }
+
+        if (gateWay !== 'mtnmomo' && gateWay !== 'orange'  ) {
+            dispatch(setErrorMessage(` Please ${gateWay} is not supported at the moment`))
+            return
+        }
+
+        dispatch(nextPageStep())
+        dispatch(nextColorStep())
+    }
+
   return (
     <div>
         <h3 className='method-title'>Payment methods</h3>
-        {/* <Alert/> */}
+         {display && <Alert/> }
         <div className="payment-methods">
-            <div className='method-item'>
-                <input type="radio" />
-                <img src="https://core.payunit.net/resources/flags/mtn.png" alt="mtnmomo" />
-            </div>
-            <div className='method-item'>
-                <input type="radio" />
-                <img src="https://core.payunit.net/resources/flags/orange.png" alt="orange" />
-            </div>
+            {isLoading ? <ClipLoader/> :
+                psps.map((item) => {
+                    return (
+                        <div className='method-item' key={item.provider_id}>
+                            <input type="radio" value={item.provider_short_tag}
+                             onChange={handleChange}
+                             checked={gateWay === item.provider_short_tag} />
+                            <img src={item.provider_logo} alt={item.provider_short_tag}  />
+                        </div>
+                    )
+                })
+            }
         </div>
         <div className='continue-btn'>
-            <button>Continue</button>
+            <button onClick={handleClick}>Continue</button>
         </div>
     </div>
   )

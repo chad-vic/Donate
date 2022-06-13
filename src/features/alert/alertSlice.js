@@ -18,9 +18,12 @@ const alertSlice = createSlice({
             state.display = true;
             state.message = payload;
             state.color = 'success'
+        },
+        clearAlert:(state) => {
+            state.display = false;
         }
     }
 })
 
-export const { setErrorMessage, setSuccessMessage } = alertSlice.actions
+export const { setErrorMessage, setSuccessMessage,clearAlert } = alertSlice.actions
 export default alertSlice.reducer

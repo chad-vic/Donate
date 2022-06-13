@@ -14,9 +14,13 @@ const donateStepSlice = createSlice({
         },
         nextPageStep: (state) => {
             state.pageInitialStep = state.pageInitialStep + 1
+        },
+        canselPayment:(state) => {
+            localStorage.removeItem('transaction_id')
+            return state
         }
     }
 })
 
-export const { nextColorStep, nextPageStep } = donateStepSlice.actions
+export const { nextColorStep, nextPageStep,canselPayment } = donateStepSlice.actions
 export default donateStepSlice.reducer

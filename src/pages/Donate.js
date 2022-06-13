@@ -9,6 +9,11 @@ import { useSelector } from 'react-redux'
 
 function Donate() {
   const [gateWay, setGateWay] = useState('')
+
+  const handleChange = (e) => {
+      setGateWay(e.target.value)
+  }
+
   const { isLoading } = useSelector((store) => store.loader)
   const { pageInitialStep } = useSelector(store => store.donateStep)
   return (
@@ -17,8 +22,8 @@ function Donate() {
       <div className="form-container">
         {pageInitialStep < 3 && <PayTrack />}
         {pageInitialStep === 0 && <InitiatePayment />}
-        {pageInitialStep === 1 && <GetPsp />}
-        {pageInitialStep === 2 && <MakePayment />}
+        {pageInitialStep === 1 && <GetPsp handleChange={handleChange} gateWay={gateWay} />}
+        {pageInitialStep === 2 && <MakePayment gateWay={gateWay}  />}
         {pageInitialStep === 3 && <PaymentStatus />}
       </div>
     </div>

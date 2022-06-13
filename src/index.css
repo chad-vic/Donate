@@ -391,15 +391,22 @@ select:focus {
 }
 
 .alert {
-background: var(--success-bgcolor);
-color:var(--success-textcolor);
-padding: 0.375rem 0.75rem;
-margin-bottom: 1rem;
-border-color: transparent;
-border-radius: 5px;
-text-align: center;
-letter-spacing: 1px;
+  padding: 0.375rem 0.75rem;
+  margin-bottom: 1rem;
+  border-color: transparent;
+  border-radius: 5px;
+  text-align: center;
+  letter-spacing: 1px;
+}
 
+.success {
+  background: var(--success-bgcolor);
+  color:var(--success-textcolor);
+}
+
+.danger {
+  background: var(--error-bgcolor);
+  color:var(--error-textcolor);
 }
 
 .payment-methods {
