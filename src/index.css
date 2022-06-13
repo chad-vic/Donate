@@ -298,20 +298,11 @@ svg {
   margin-left: 1.5rem;
 }
 
-.track-one {
-  background: var(--primary-color);
-  color: var(--white-color);
-}
 
-/* .track-two {
+.is-active {
    background: var(--primary-color);
    color: var(--white-color);
 }
-
-.track-three {
-  background: var(--primary-color);
-  color: var(--white-color);
-} */
 
 
 
@@ -463,7 +454,9 @@ input[type=radio] {
   color: var(--primary-color);
 }
 
+
 .loader{
+  content: '';
   width: 100vw;
   height:100vh;
   position: absolute;
