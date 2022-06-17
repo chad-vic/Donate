@@ -25,7 +25,6 @@ export const initiateTransaction = createAsyncThunk('transaction/initiateTransac
 
        return transactionValue
     } catch (error) {
-        console.log(error);
         thunkAPI.dispatch(isNotLoading())
     }
 })

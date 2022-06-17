@@ -3,9 +3,8 @@ import { useSelector,useDispatch } from 'react-redux'
 import { donateFetch } from '../axios/custom'
 import { setErrorMessage, setSuccessMessage } from '../features/alert/alertSlice'
 import Alert from './Alert'
-// import {transaction_id} from '../utils/transactionId'
 import { isLoading,isNotLoading } from '../features/loader/loaderSlice'
-import { canselPayment } from '../features/donateSteps/donateStepSlice'
+import { canselPayment, nextPageStep } from '../features/donateSteps/donateStepSlice'
 
 function MakePayment({gateWay}) {
   const [phone_number,setPhoneNumber] = useState('')
@@ -34,10 +33,13 @@ function MakePayment({gateWay}) {
       const {data} = await donateFetch.post(`makepayment/${transaction_id}`,paymentValue)
       dispatch(isNotLoading())
       dispatch(setSuccessMessage(data?.message))
-    } catch (error) {
-      console.log(error);
-      dispatch(isNotLoading())
 
+      setTimeout(() => {
+        dispatch(nextPageStep())
+      }, 3000);
+    } catch (error) {
+      dispatch(isNotLoading())
+      return error?.response
     }
   }
 

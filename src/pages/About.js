@@ -11,7 +11,7 @@ function About() {
         <section className="sec-two">
           <div>
           <h2>About Us</h2>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis voluptate vitae voluptates iste nihil, nesciunt quos sunt corrupti. Qui ut non rerum laborum ratione earum beatae iusto nostrum eum ex!</p>
+            <p>We are raising money for the Ukrainine refugee children in Moldova and your contribution will make a great impact, whether you donate $5 or $500. The North Carolina-Moldova Partnership has partnered with Moldova World Children’s Fund to support thousands of the Ukrainian refugee children that arrived and continue to arrive in Moldova seeking shelter, food and a new home. Thank you for your support!</p>
             <Link className="about-btn" to='/donate'>Donate now</Link>
           </div>
         </section>

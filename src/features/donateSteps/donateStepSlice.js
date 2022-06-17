@@ -17,7 +17,8 @@ const donateStepSlice = createSlice({
         },
         canselPayment:(state) => {
             localStorage.removeItem('transaction_id')
-            return state
+            state.colorInitialStep = 1 
+            state.pageInitialStep = 0
         }
     }
 })

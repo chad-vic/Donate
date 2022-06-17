@@ -8,7 +8,9 @@ function Landing() {
 
         <div className="landing-container">
             <nav>
-                <h1 className="logo">Logo</h1>
+                <h1 className="logo">
+                    Save<span style={{color:"#2cb1bc"}}>.</span>
+                </h1>
                 <ul>
                     <li><Link to='/donate'>Donate now</Link></li>
                 </ul>
