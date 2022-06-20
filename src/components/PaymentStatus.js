@@ -1,16 +1,16 @@
 import React ,{useEffect,useState} from 'react'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
 import { donateFetch } from '../axios/custom'
 import { canselPayment } from '../features/donateSteps/donateStepSlice'
 
 function PaymentStatus() {
   const [isLoading,setIsLoading] = useState(true)
-  const [successMessage,setSuccessMessage] = useState('')
   const [errorMessage,setErrorMessage] = useState('')
   const transaction_id = localStorage.getItem('transaction_id') 
   const dispatch =  useDispatch()
-
+  const navigate = useNavigate()
       useEffect(() => {
         const getPaymentStatus = async () => {
           setIsLoading(true)
@@ -20,9 +20,9 @@ function PaymentStatus() {
 
             if (data?.status === "success") {
                 setIsLoading(false)
-                setSuccessMessage('Payment Successful !')
                 clearInterval(interval)
                 clearTimeout(timeOut)
+                navigate('/paymentsuccessful')
             } else if (data?.status === "failed") {
                 setIsLoading(false)
                 setErrorMessage("payment failed....")
@@ -50,7 +50,7 @@ function PaymentStatus() {
     getPaymentStatus()
    }, 2000)
 
-  },[transaction_id])
+  },[transaction_id,navigate])
 
   if (isLoading) {
     return (
@@ -62,7 +62,6 @@ function PaymentStatus() {
 
   return (
     <div>
-      <h2>{successMessage && "Payment Successful !"}</h2>
       {errorMessage && <div>
         <h3 style={{color:'#842029'}}>{errorMessage && "Payment Failed..."}</h3>
         <button style={{width:'70px'}} onClick={() => dispatch(canselPayment())}>Retry</button>

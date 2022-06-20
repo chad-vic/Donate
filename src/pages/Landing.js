@@ -1,7 +1,9 @@
 import React from 'react'
+
 import { Link } from 'react-router-dom'
 
 function Landing() {
+
   return (
     <main className="landing-main">
         <img src="/image/donate.jpg" alt="donate" />  
